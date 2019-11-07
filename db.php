@@ -1,5 +1,5 @@
 <?php
-//ini di xampp
+
     //connect ke database
     $servername = "localhost";
     $username = "root";
