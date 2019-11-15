@@ -92,10 +92,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <table class="show-cart table">
-
-                        </table>
-                        <div>Total price: Rp<span class="total-cart"></span></div>
+                    <input type="text" class="form-control" placeholder="noMeja" aria-label="noMeja" aria-describedby="basic-addon1">
+                    <table class="show-cart table">
+                    </table>
+                    <div>Total price: Rp<span class="total-cart"></span></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
