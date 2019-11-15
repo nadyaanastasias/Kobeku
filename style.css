@@ -56,18 +56,3 @@ nav ul li a:hover {
 	color: #ff9727;
 }
 
-.btn{
-	font-weight: bold;
-	font-size: 12px;
-	letter-spacing: 2px;
-	padding: 13px 17px;
-  border: none;
-  
-  &.btn-default{
-		color: #000;
-		background-color: @default_color;
-		border: 1px solid darken(@default_color, 10%);
-}
-
-
-
