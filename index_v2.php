@@ -17,7 +17,7 @@
     }
     // echo "Connected successfully";
 
-    $sql = 'SELECT namaMakanan, harga FROM makanan';
+    $sql = 'SELECT namaMakanan, harga, img FROM makanan';
     $result = mysqli_query($conn, $sql);
     $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -52,8 +52,8 @@
                 </div>
                 <div class="col">
                     <ul class="menu" id="navigation">
-                        <li><a href=i ndex.html>Menu</a></li>
-                        <li><a href=p embayaran.html>Pesanan</a></li>
+                        <li><a href=index.html>Menu</a></li>
+                        <li><a href=pembayaran.html>Pesanan</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         echo '
                         <div class="col">
                             <div class="card" style="width: 20rem;">
-                                <img class="card-img-top" id="fb-img" src="#" alt="Card image cap">
+                                <img class="card-img-top" id="fb-img" src='.$item['img'].' alt="Card image cap">
                                 <div class="card-block">
                                     <h4 class="card-title" id="menu-name">'.$item['namaMakanan'].'</h4>
                                     <p class="card-text" id="price">Price: Rp '.$item['harga'].'</p>
