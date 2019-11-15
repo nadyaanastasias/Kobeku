@@ -57,6 +57,11 @@
                     </ul>
                 </div>
             </div>
+            <div class = "row">
+                <div class ="col text-center">
+                    <input type = "text" id= "myinput" onkeyup = "myfunction()" placeholder= "Search Menu">
+                </div>
+            </div>
         </nav>
 
         <div class="container">
