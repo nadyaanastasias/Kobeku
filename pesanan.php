@@ -68,12 +68,10 @@
                                 <div class="card" style="width: 20rem;">
                                     <div class="card-block">
                                     <h4 class="card-title" id="id-pesanan">ID Pesanan '.$psn['idPesanan'].'</h4>
-                                    <h4 class="card-title" id="no-meja">No Meja '.$psn['noMeja'].'</h4>
+                                    <h4 class="card-title" id="no-meja">No Meja '.$psn['noMeja'].'</h4><br/>
                         '; 
 
                         foreach($makanan as $item){
-                        //     $arrMakanan = array($item['namaMakanan']);
-                        //     $array_length["normal_count"] = count($arrMakanan,COUNT_NORMAL);
                             echo '
                                         <p class="card-text" id="menu-name"> '.$item['namaMakanan'].' </p>
                             ';
