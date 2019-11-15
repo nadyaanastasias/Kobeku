@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `isipesanan`;
 CREATE TABLE `isipesanan` (
   `idPesanan` int(11) DEFAULT NULL,
   `idMakanan` int(11) DEFAULT NULL,
-  `hargaMakanan` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
   KEY `idPesanan` (`idPesanan`),
   KEY `idMakanan` (`idMakanan`),
-  CONSTRAINT `isipesanan_ibfk_1` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`),
-  CONSTRAINT `isipesanan_ibfk_2` FOREIGN KEY (`idMakanan`) REFERENCES `makanan` (`idMakanan`)
+  CONSTRAINT `idMakanan` FOREIGN KEY (`idMakanan`) REFERENCES `makanan` (`idMakanan`),
+  CONSTRAINT `idPesanan` FOREIGN KEY (`idPesanan`) REFERENCES `pesanan` (`idPesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,9 +52,10 @@ DROP TABLE IF EXISTS `makanan`;
 CREATE TABLE `makanan` (
   `idMakanan` int(11) NOT NULL,
   `jenisMakanan` varchar(7) DEFAULT NULL,
-  `namaMakanan` varchar(20) DEFAULT NULL,
+  `namaMakanan` varchar(50) DEFAULT NULL,
   `harga` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
+  `img` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idMakanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,7 +66,7 @@ CREATE TABLE `makanan` (
 
 LOCK TABLES `makanan` WRITE;
 /*!40000 ALTER TABLE `makanan` DISABLE KEYS */;
-INSERT INTO `makanan` VALUES (1,'Makanan','Chicken Teriyaki',27000,1),(2,'Makanan','Chicken Yakiniku',27000,1),(3,'Makanan','Chicken Katsu',27000,1),(4,'Makanan','Chicken Mongolia',30000,1),(5,'Makanan','Chicken Goma',30000,1),(6,'Makanan','Chicken Mayonnaise',33000,1),(7,'Makanan','Chicken Torino Karaa',28000,1),(8,'Makanan','Beef Teriyaki',33000,1),(9,'Makanan','Beef Yakiniku',33000,1),(10,'Makanan','Beef Katsu',33000,1),(11,'Makanan','Beef Mongolia',33000,1),(12,'Makanan','Teppanyaki',45000,1),(13,'Makanan','Seafood Teriyaki',35000,1),(14,'Makanan','Seafood Yakiniku',35000,1),(15,'Makanan','Fish Katsu',35000,1),(16,'Makanan','Fish Fillet with Jap',38000,1),(17,'Makanan','Fish Fry with Japane',39000,1),(18,'Makanan','Dory Tempura',48000,1),(19,'Makanan','Cumi Tempura',45000,1),(20,'Makanan','Cumi Goreng Kering d',35000,1),(21,'Makanan','Ebi Furai',40000,1),(22,'Makanan','Udang Mayonnaise',38000,1),(23,'Makanan','Udang Tempura',49000,1),(24,'Makanan','Steam Boat Kobe Spec',55000,1),(25,'Makanan','Tahu Panggang Garam',29000,1),(26,'Makanan','Kwe Tiaw Goreng Ayam',30000,1),(27,'Makanan','Nasi Cap Cay',35000,1),(28,'Minuman','Ocha Dingin',10000,1),(29,'Minuman','Ocha Hangat',8000,1),(30,'Minuman','Soda Dingin',15000,1);
+INSERT INTO `makanan` VALUES (1,'Makanan','ChickenTeriyaki',27000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTt3T7bmT-OXKcmlCXFyqgGNFTjIKxcQMEykgy6v-_cLBhbnh6k'),(2,'Makanan','ChickenYakiniku',27000,1,'https://www.lowcarbingasian.com/wp-content/uploads/2019/07/Keto-Japanese-Grilled-Beef-Yakiniku-LowCarbingAsian-Cover-480x270.jpg'),(3,'Makanan','ChickenKatsu',27000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsTzXPqNqYthPj_rISR_TT7xpcaB3ADHDA2LMsjbKWEhzHfLWR'),(4,'Makanan','ChickenMongolia',30000,1,'https://i2.wp.com/sweetandsavorymeals.com/wp-content/uploads/2017/02/Pressure-Cooker-Instant-Pot-Mongolian-Chicken-3.jpg?resize=680%2C907&ssl=1'),(5,'Makanan','ChickenGoma',30000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ0BtjavjWj5SZPSpn3_q5thfhWUb3W9mub6T1NpuiZOmP0R4Ku'),(6,'Makanan','ChickenMayonnaise',33000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTYsYVsg_PBAOuDDroBX35PBuNz0NP3vVnYAPdMyllizI9mDksJ'),(7,'Makanan','ChickenTorinoKaraage',28000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRC3TZYIoJylaFlOnZuCnF8A7XGJBhAUcDZzHuju3QKsgZqIvrU'),(8,'Makanan','BeefTeriyaki',33000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRNZNx43cMW33xL1N8-oElxhHuTk_Np5s7nbWY7LvgRlJGaUzLR'),(9,'Makanan','BeefYakiniku',33000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQIaMryVWF1kPuWST1InQg5yafJCc07AwIG3PSPhmCwnqvDwzQ5'),(10,'Makanan','BeefKatsu',33000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUbHnihT15722SGN8bMkiWcOEN3KdUYKz26iU7QA2_VmpWFbiR'),(11,'Makanan','BeefMongolia',33000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRfEjEdB_Cm0VGitNTfHJqWp1zJLjqQTEsaK5MX2ZfXNhGWgIsa'),(12,'Makanan','Teppanyaki',45000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTPteCQyk3FAdUxKacWWX4bJFyiUVkUnrPp0kThHRowFty8QTIW'),(13,'Makanan','SeafoodTeriyaki',35000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsHhddhVIN6YXeQKWwHMTyyuWbPsbIzUDr08A1s2E_N_D5rOEi'),(14,'Makanan','SeafoodYakiniku',35000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUy3r-HD-Iv6euLizSxq1NwqmhFwUZ4jZAGOFWVhRKiJxRBGXp'),(15,'Makanan','FishKatsu',35000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ4QbY5QOYeSMlZqY5vgjILvD_4WKJ_4Id4x_ilUC2D50GxuGTh'),(16,'Makanan','FishFilletwithJapaneseSauce',38000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUcDo7-GXVKKYTudhX_hENtEpCTaqv7hQT38C8Ko-jGAe3TCRj'),(17,'Makanan','FishFrywithJapaneseSauce',39000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqDA0nZ580NT8aYeBV4bM42t5ykoREevwl3BIwuEHDPDLj63Cz'),(18,'Makanan','DoryTempura',48000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSAy-JUkJ98_vn5LAv3X5C-ym4AgotEJSjDSmmFd0ipS9iQewS-'),(19,'Makanan','CumiTempura',45000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRWicO_fzEcm0mz_xdZB_L2oGxDFC0qLkYl0wacxhIQ6IuiFJos'),(20,'Makanan','CumiGorengKeringdenganSaus',35000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSjrQHx1EBH1l1zb8ob0FAIniPsa_5NT2y3GHcPUPMf5x_BI7AM'),(21,'Makanan','EbiFurai',40000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQBLh93UbePUg5d-_2m-tXcy-hZ5K2qs5jlu7wZbAHMtA2HFHxl'),(22,'Makanan','UdangMayonnaise',38000,1,'https://www.radarsultra.co.id/wp-content/uploads/2019/03/IMG-20190301-WA0002-e1551442722144.jpg'),(23,'Makanan','UdangTempura',49000,1,'https://cf.shopee.co.id/file/a8aed26667c36d5aa69f003400654128'),(24,'Makanan','SteamBoatKobeSpecial',55000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRcjtbWTUPQEQLPaJ9yH_c1G_aYAFjKZFFZybECKrk3jeu-N9v9'),(25,'Makanan','TahuPanggangGaram',29000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_9iw-ZbWuOIWIcboItkL5vbvP9pzBYxK3ABJgiW6xZ7oBlm7b'),(26,'Makanan','KweTiawGorengAyam',30000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRLBB78kUA1hR7kmt59FAZ03NSVRLkMfML4mzr0iYHBah8npGA0'),(27,'Makanan','NasiCapCay',35000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQRQsr178SHwMHoxqsnTw0ksgnMJZOgaiLyPM26ibKH0Mp71XYJ'),(28,'Minuman','Ocha',10000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQAzWZCQwWmW2Yej_-jAQtauewkqshZr7-kUl6PM4qnDsbUFdCe'),(29,'Minuman','CocaCola',15000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRFRux21cbmALxfm1wSxe6rOKV64BulAqQnP3Uo2RGAl8FsXg4R'),(30,'Minuman','LemonTea',13000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKQ9Wu1HDE-3c3YcYSKJXaYrdxCqw1-kOAsuq9vswPH5hTJFT3'),(31,'Minuman','Cappucino',15000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTmlmPoEhqIdawgRIYcjZSvT2yo0snIN2UWkBsr8NAgO_j35fFn'),(32,'Minuman','AirMineral',7000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSSB0tAbqZ9n0Jets3U5dJwBL3iuZx-40XpFXDAEKsJfQkNpLf7'),(33,'Minuman','IceChocolate',15000,1,'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSSvGGJVW6jVdfonOAQ7Ey0wuZcWBmSBKoZlrzD_WhPJCX9KAxR');
 /*!40000 ALTER TABLE `makanan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,9 +78,10 @@ DROP TABLE IF EXISTS `pesanan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pesanan` (
-  `idPesanan` int(11) NOT NULL,
+  `idPesanan` int(11) NOT NULL AUTO_INCREMENT,
   `totalHarga` int(11) DEFAULT NULL,
   `tanggalPembelian` date DEFAULT NULL,
+  `noMeja` int(11) DEFAULT NULL,
   PRIMARY KEY (`idPesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,4 +130,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-07 11:28:18
+-- Dump completed on 2019-11-15 11:34:43
