@@ -52,8 +52,8 @@
                 </div>
                 <div class="col">
                     <ul class="menu" id="navigation">
-                        <li><a href=index.html>Menu</a></li>
-                        <li><a href=pembayaran.html>Pesanan</a></li>
+                        <li><a href= index_v2.php >Menu</a></li>
+                        <li><a href= pesanan.html>Pesanan</a></li>
                     </ul>
                 </div>
             </div>
@@ -97,14 +97,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="noMeja" aria-label="noMeja" aria-describedby="basic-addon1">
+                    <form method = "POST" ACTION = "isipesanan.php" placeholder="noMeja" aria-label="noMeja" aria-describedby="basic-addon1">
                     <table class="show-cart table">
                     </table>
                     <div>Total price: Rp<span class="total-cart"></span></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Order now</button>
+                        <button type="button" class="order-now btn btn-primary">Order now</button>
                     </div>
                 </div>
             </div>

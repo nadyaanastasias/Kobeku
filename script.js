@@ -16,18 +16,26 @@ var shoppingCart = (function() {
   // Save cart
   function saveCart() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-    console.log(sessionStorage)
-  }
+}
   
     // Load cart
   function loadCart() {
     cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
+      if (sessionStorage.getItem("shoppingCart") != null) {
+        loadCart();
+      }
   }
-  if (sessionStorage.getItem("shoppingCart") != null) {
-    loadCart();
-  }
-  
 
+  function postCart(){
+    var data = {};
+      for(var len = sessionStorage.length, i = 0; i < len; i++) {
+        var key =  sessionStorage.key(i);
+        data[key] = sessionStorage.getItem(key);
+      }
+    console.log(data);
+    //From this point you can post the `data` to your server side
+    $.ajax({ type: "POST", url: "myPHP.php", data: data });
+}
   // =============================
   // Public methods and propeties
   // =============================
@@ -141,6 +149,9 @@ $('.clear-cart').click(function() {
   displayCart();
 });
 
+$('order-now').click(function(){
+  saveCart();
+});
 
 function displayCart() {
   var cartArray = shoppingCart.listCart();
@@ -181,6 +192,7 @@ $('.show-cart').on("click", ".plus-item", function(event) {
   shoppingCart.addItemToCart(name);
   displayCart();
 })
+
 
 // Item count input
 $('.show-cart').on("change", ".item-count", function(event) {
