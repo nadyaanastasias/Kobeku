@@ -1,56 +1,63 @@
-//shopping cart API
+//shopping cart apI
+
 var shoppingCart = (function() {
-  // =============================
-  // Private methods and propeties
-  // =============================
   cart = [];
-  
-  // Constructor
+
+  //CONSTRUCTOR
   function Item(id,name, price, count) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.count = count;
   }
-  
-  
-  // Save cart
+
+  //save the cart
   function saveCart() {
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));   
+    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
   }
-  
-    // Load cart
+
+  //load the cart
   function loadCart() {
     cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
-      if (sessionStorage.getItem("shoppingCart") != null) {
-        loadCart();
-      }
+  }
+  if (sessionStorage.getItem("shoppingCart") != null)
+  {
+    loadCart();
   }
 
-  function postCart(){
-    var data = {};
-    for(var len = sessionStorage.length, i = 0; i < len; i++) {
-        var key =  sessionStorage.key(i);
-        data[key] = sessionStorage.getItem(key);
-    }
-  console.log(data);
-  //From this point you can post the `data` to your server side
-  $.post("isipesanan.php",{data: data},function(response,status){
-    alert("respons server" + response);
-    alert("status server"+status);
-  });
-}
- $("#order-now").click(postCart);
+  //post the cart into PHP
+    function postCart(){
+      var data = {};
+      for(var len = sessionStorage.length, i = 0; i < len; i++) {
+          var key =  sessionStorage.key(i);
+          data[key] = sessionStorage.getItem(key);
+      }
 
-  // =============================
-  // Public methods and propeties
-  // =============================
+    console.log(data);
+
+    //From this point you can post the `data` to your server side
+    $.post("./isipesanan.php",
+      {
+        data1 : data
+      },
+      function(response,status){
+        alert("respons server" + response);
+        alert("status server"+status);
+    });
+    }
+
+  //trigger order now
+   $("#order-now").click(postCart);
+
+   //public method
   var obj = {};
-  
-  // Add to cart
+
+  //additem
   obj.addItemToCart = function(id,name, price, count) {
-    for(var item in cart) {
-      if(cart[item].name === name) {
+    for (var item in cart) 
+    {
+      if (cart[item].name === name) 
+      {
         cart[item].count ++;
         saveCart();
         return;
@@ -60,33 +67,42 @@ var shoppingCart = (function() {
     cart.push(item);
     saveCart();
   }
-  // Set count from item
+
+  //count item
   obj.setCountForItem = function(name, count) {
-    for(var i in cart) {
-      if (cart[i].name === name) {
+    for (var i in cart)
+    {
+      if (cart[i].name === name)
+      {
         cart[i].count = count;
         break;
       }
     }
   };
-  // Remove item from cart
+
+  //remove item
   obj.removeItemFromCart = function(name) {
-      for(var item in cart) {
-        if(cart[item].name === name) {
-          cart[item].count --;
-          if(cart[item].count === 0) {
-            cart.splice(item, 1);
-          }
-          break;
+    for (var item in cart)
+    {
+      if (cart[item].name === name) 
+      {
+        cart[item].count --;
+        if (cart[item].count === 0) 
+        {
+          cart.splice(item, 1);
         }
+        break;
+      }
     }
     saveCart();
   }
 
-  // Remove all items from cart
+  //remove all item
   obj.removeItemFromCartAll = function(name) {
-    for(var item in cart) {
-      if(cart[item].name === name) {
+    for (var item in cart)
+    {
+      if (cart[item].name === name) 
+      {
         cart.splice(item, 1);
         break;
       }
@@ -94,39 +110,42 @@ var shoppingCart = (function() {
     saveCart();
   }
 
-  // Clear cart
+  //clear cart
   obj.clearCart = function() {
     cart = [];
     saveCart();
   }
 
-  // Count cart 
+  //count
   obj.totalCount = function() {
     var totalCount = 0;
-    for(var item in cart) {
+    for (var item in cart) 
+    {
       totalCount += cart[item].count;
     }
     return totalCount;
   }
 
-  // Total cart
+  //total
   obj.totalCart = function() {
     var totalCart = 0;
-    for(var item in cart) {
+    for (var item in cart)
+    {
       totalCart += cart[item].price * cart[item].count;
     }
     return Number(totalCart.toFixed(2));
   }
 
-  // List cart
+  //listcart
   obj.listCart = function() {
     var cartCopy = [];
-    for(i in cart) {
+    for (i in cart)
+    {
       item = cart[i];
       itemCopy = {};
-      for(p in item) {
+      for (p in item)
+      {
         itemCopy[p] = item[p];
-
       }
       itemCopy.total = Number(item.price * item.count).toFixed(2);
       cartCopy.push(itemCopy)
@@ -136,39 +155,58 @@ var shoppingCart = (function() {
   return obj;
 })();
 
-
-// *****************************************
-// Triggers / Events
-// ***************************************** 
-
+//trigerr event
+//add to cart
 $('.add-to-cart').click(function(event) {
   event.preventDefault();
+  var id = $(this).data('id');
   var name = $(this).data('name');
   var price = Number($(this).data('price'));
-  var id = $(this).data('id');
-  shoppingCart.addItemToCart(id,name, price, 1);
+  shoppingCart.addItemToCart(id,name,price,1);
   displayCart();
 });
 
-$('.order-now').on("click",function(){
-  shoppingCart.clearCart();
-  displayCart();
-  });
-  
-$('.clear-cart').click(function(){
+//clear cart
+$('.clear-cart').click(function() {
   shoppingCart.clearCart();
   displayCart();
 });
 
-function orderNow(){
-  shoppingCart.clearCart();
+//X
+$('.show-cart').on("click", ".delete-item", function(event) {
+  var name = $(this).data('name')
+  shoppingCart.removeItemFromCartAll(name);
   displayCart();
-}
+})
 
+//-
+$('.show-cart').on("click", ".minus-item", function(event) {
+  var name = $(this).data('name')
+  shoppingCart.removeItemFromCart(name);
+  displayCart();
+})
+
+//+
+$('.show-cart').on("click", ".plus-item", function(event) {
+  var name = $(this).data('name')
+  shoppingCart.addItemToCart(name);
+  displayCart();
+})
+
+//count
+$('.show-cart').on("change", ".item-count", function(event) {
+   var name = $(this).data('name');
+   var count = Number($(this).val());
+  shoppingCart.setCountForItem(name, count);
+  displayCart();
+});
+
+//display cart
 function displayCart() {
   var cartArray = shoppingCart.listCart();
   var output = "";
-  for(var i in cartArray) {
+  for (var i in cartArray) 
+  {
     output += "<tr>"
       + "<td>" + cartArray[i].name + "</td>" 
       + "<td>(" + cartArray[i].price + ")</td>"
@@ -176,42 +214,13 @@ function displayCart() {
       + "<input type='number' class='item-count form-control' data-name='" + cartArray[i].name + "' value='" + cartArray[i].count + "'>"
       + "<button class='plus-item btn btn-primary input-group-addon' data-name=" + cartArray[i].name + ">+</button></div></td>"
       + "<td><button class='delete-item btn btn-danger' data-name=" + cartArray[i].name + ">X</button></td>"
+      + " = " 
+      + "<td>" + cartArray[i].total + "</td>" 
       +  "</tr>";
   }
   $('.show-cart').html(output);
   $('.total-cart').html(shoppingCart.totalCart());
   $('.total-count').html(shoppingCart.totalCount());
 }
-
-// Delete item button
-
-$('.show-cart').on("click", ".delete-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.removeItemFromCartAll(name);
-  displayCart();
-})
-
-
-// -1
-$('.show-cart').on("click", ".minus-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.removeItemFromCart(name);
-  displayCart();
-})
-// +1
-$('.show-cart').on("click", ".plus-item", function(event) {
-  var name = $(this).data('name')
-  shoppingCart.addItemToCart(name);
-  displayCart();
-})
-
-
-// Item count input
-$('.show-cart').on("change", ".item-count", function(event) {
-   var name = $(this).data('name');
-   var count = Number($(this).val());
-  shoppingCart.setCountForItem(name, count);
-  displayCart();
-});
 
 displayCart();
