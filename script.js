@@ -1,22 +1,13 @@
-//shopping cart apI
-
 var shoppingCart = (function() {
   cart = [];
-
-  //CONSTRUCTOR
-  function Item(id,name, price, count) {
-    this.id = id;
+  function Item(name, price, count) {
     this.name = name;
     this.price = price;
     this.count = count;
   }
-
-  //save the cart
   function saveCart() {
     sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
   }
-
-  //load the cart
   function loadCart() {
     cart = JSON.parse(sessionStorage.getItem('shoppingCart'));
   }
@@ -24,36 +15,32 @@ var shoppingCart = (function() {
   {
     loadCart();
   }
-
   //post the cart into PHP
-    function postCart(){
-      var data = {};
-      for(var len = sessionStorage.length, i = 0; i < len; i++) {
-          var key =  sessionStorage.key(i);
-          data[key] = sessionStorage.getItem(key);
-      }
-
-    console.log(data);
-
-    //From this point you can post the `data` to your server side
-    $.post("./isipesanan.php",
-      {
-        data1 : data
-      },
-      function(response,status){
-        alert("respons server" + response);
-        alert("status server"+status);
-    });
+  function postCart(){
+    var data = {};
+    for(var len = sessionStorage.length, i = 0; i < len; i++) {
+        var key =  sessionStorage.key(i);
+        data[key] = sessionStorage.getItem(key);
     }
 
-  //trigger order now
-   $("#order-now").click(postCart);
+  console.log(data);
 
-   //public method
+  //From this point you can post the `data` to your server side
+  $.post("./isipesanan.php",
+    {
+      data1 : data
+    },
+    function(response,status){
+      alert("respons server" + response);
+      alert("status server"+status);
+  });
+  }
+
+//trigger order now
+ $("#order-now").click(postCart);
+ 
   var obj = {};
-
-  //additem
-  obj.addItemToCart = function(id,name, price, count) {
+  obj.addItemToCart = function(name, price, count) {
     for (var item in cart) 
     {
       if (cart[item].name === name) 
@@ -63,12 +50,10 @@ var shoppingCart = (function() {
         return;
       }
     }
-    var item = new Item(id,name, price, count);
+    var item = new Item(name, price, count);
     cart.push(item);
     saveCart();
   }
-
-  //count item
   obj.setCountForItem = function(name, count) {
     for (var i in cart)
     {
@@ -79,8 +64,6 @@ var shoppingCart = (function() {
       }
     }
   };
-
-  //remove item
   obj.removeItemFromCart = function(name) {
     for (var item in cart)
     {
@@ -96,8 +79,6 @@ var shoppingCart = (function() {
     }
     saveCart();
   }
-
-  //remove all item
   obj.removeItemFromCartAll = function(name) {
     for (var item in cart)
     {
@@ -109,14 +90,10 @@ var shoppingCart = (function() {
     }
     saveCart();
   }
-
-  //clear cart
   obj.clearCart = function() {
     cart = [];
     saveCart();
   }
-
-  //count
   obj.totalCount = function() {
     var totalCount = 0;
     for (var item in cart) 
@@ -125,8 +102,6 @@ var shoppingCart = (function() {
     }
     return totalCount;
   }
-
-  //total
   obj.totalCart = function() {
     var totalCart = 0;
     for (var item in cart)
@@ -135,8 +110,6 @@ var shoppingCart = (function() {
     }
     return Number(totalCart.toFixed(2));
   }
-
-  //listcart
   obj.listCart = function() {
     var cartCopy = [];
     for (i in cart)
@@ -155,45 +128,32 @@ var shoppingCart = (function() {
   return obj;
 })();
 
-//trigerr event
-//add to cart
 $('.add-to-cart').click(function(event) {
   event.preventDefault();
-  var id = $(this).data('id');
   var name = $(this).data('name');
   var price = Number($(this).data('price'));
-  shoppingCart.addItemToCart(id,name,price,1);
+  shoppingCart.addItemToCart(name, price, 1);
   displayCart();
 });
-
-//clear cart
 $('.clear-cart').click(function() {
   shoppingCart.clearCart();
   displayCart();
 });
-
-//X
 $('.show-cart').on("click", ".delete-item", function(event) {
   var name = $(this).data('name')
   shoppingCart.removeItemFromCartAll(name);
   displayCart();
 })
-
-//-
 $('.show-cart').on("click", ".minus-item", function(event) {
   var name = $(this).data('name')
   shoppingCart.removeItemFromCart(name);
   displayCart();
 })
-
-//+
 $('.show-cart').on("click", ".plus-item", function(event) {
   var name = $(this).data('name')
   shoppingCart.addItemToCart(name);
   displayCart();
 })
-
-//count
 $('.show-cart').on("change", ".item-count", function(event) {
    var name = $(this).data('name');
    var count = Number($(this).val());
@@ -201,7 +161,6 @@ $('.show-cart').on("change", ".item-count", function(event) {
   displayCart();
 });
 
-//display cart
 function displayCart() {
   var cartArray = shoppingCart.listCart();
   var output = "";
