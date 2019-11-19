@@ -3,10 +3,10 @@
 
     <?php
         //connect ke database
-        $servername = "localhost";
+        $servername = "localhost"; 
         $username = "root";
         $password = "";
-        $database = "kobeku";
+        $database = "kobeku"; 
 
         // Create connection
         $conn = mysqli_connect($servername, $username, $password, $database);
@@ -16,11 +16,15 @@
         }
         // echo "Connected successfully";
 
+        // isipesanan: idPesanan, idMakanan, quantity
+        // pesanan: idPesanan, totalHarga, noMeja, tanggalPembelian
+        // makanan: idMakanan, jenisMakanan, namaMakanan, harga, status, img
+
         $sql = 'SELECT idPesanan, noMeja FROM pesanan';
-        $result = mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, $sql); 
         $pesanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
-        $sql = 'SELECT namaMakanan FROM pesanan, isipesanan, makanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan';
+        $sql = 'SELECT pesanan.idPesanan, namaMakanan FROM isipesanan, makanan, pesanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan';
         $result = mysqli_query($conn, $sql);
         $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
@@ -47,7 +51,7 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button>
                 </div>
                 <div class = "col">
-                    <h3 align="center" class = "web-title" style="color:white">KOBEKU</h3> 
+                    <h3 align = "center" class = "web-title" style="color:white">KOBEKU</h3> 
                 </div>
                 <div class = "col">  
                     <ul class = "menu" id ="navigation"> 
@@ -55,35 +59,37 @@
                     <li><a href = pesanan.php>Pesanan</a></li>
                     </ul>
                 </div>  
-            </div>
+            </div> 
         </nav>
 
         <!-- Main -->
         <div class="container">
             <div class="row">
-                <?php
+                <?php 
                     foreach($pesanan as $psn){
                         echo '
                         <div class="col">
                                 <div class="card" style="width: 20rem;">
                                     <div class="card-block">
                                     <h4 class="card-title" id="id-pesanan">ID Pesanan '.$psn['idPesanan'].'</h4>
-                                    <h4 class="card-title" id="no-meja">No Meja '.$psn['noMeja'].'</h4><br/>
+                                    <h4 class="card-title" id="no-meja">No Meja '.$psn['noMeja'].'</h4><br/> 
                         '; 
 
                         foreach($makanan as $item){
-                            echo '
-                                        <p class="card-text" id="menu-name"> '.$item['namaMakanan'].' </p>
-                            ';
+                            if ($psn['idPesanan']==$item['idPesanan']) {
+                                echo '
+                                    <p class="card-text" id="menu-name"> '.$item['namaMakanan'].' </p>
+                                ';
+                            };
                         };
 
-                        echo '
-                        <br/><form action="#" method="post">
+                        echo ' 
+                                        <br/><form action="#" method="post">
                                             <p>Status makanan</p>
                                             <input type="checkbox" name="check_list[]" value="masak"><label>Selesai dimasak</label><br/>
                                             <input type="checkbox" name="check_list[]" value="antar"><label>Selesai diantar</label><br/>
                                             <input type="checkbox" name="check_list[]" value="bayar"><label>Sudah dibayar</label><br/>
-                                            <input type="submit" name="submit" value="Submit"/>
+                                            <br/><input type="submit" name="submit" value="Submit"/>
                                         </form>
                                     </div>
                                 </div>
