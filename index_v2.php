@@ -17,7 +17,7 @@
     }
     // echo "Connected successfully";
 
-    $sql = 'SELECT namaMakanan, harga, img FROM makanan';
+    $sql = 'SELECT idMakanan,namaMakanan, harga, img FROM makanan';
     $result = mysqli_query($conn, $sql);
     $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -44,8 +44,8 @@
         <nav class="navbar navbar-inverse bg-inverse fixed-top">
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button>
-                    <button class="clear-cart btn btn-danger">Clear Cart</button>
+                    <button type="button" class="btn btn-1" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button>
+                    <button class="order-now btn btn-primary" id="order-now" >Order now</button>
                 </div>
                 <div class="col">
                     <h3 align="center" class="web-title" style="color:white">KOBEKU</h3>
@@ -76,7 +76,7 @@
                                 <div class="card-block">
                                     <h4 class="card-title" id="menu-name">'.$item['namaMakanan'].'</h4>
                                     <p class="card-text" id="price">Price: Rp '.$item['harga'].'</p>
-                                    <a href="#" id="pesan-menu" data-name='.$item['namaMakanan'].' data-price='.$item['harga'].' class="add-to-cart btn btn-primary">Add to cart</a>
+                                    <a href="#" id="pesan-menu" data-name='.$item['namaMakanan'].' data-price='.$item['harga'].' data-id= '.$item['idMakanan'].' class="add-to-cart btn btn-primary">Add to cart</a>
                                 </div>
                             </div>
                         </div>
@@ -97,14 +97,13 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form method = "POST" ACTION = "isipesanan.php" placeholder="noMeja" aria-label="noMeja" aria-describedby="basic-addon1">
                     <table class="show-cart table">
                     </table>
                     <div>Total price: Rp<span class="total-cart"></span></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="order-now btn btn-primary">Order now</button>
+                        <button class="clear-cart btn btn-danger">Clear Cart</button>
                     </div>
                 </div>
             </div>

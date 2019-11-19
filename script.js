@@ -6,7 +6,8 @@ var shoppingCart = (function() {
   cart = [];
   
   // Constructor
-  function Item(name, price, count) {
+  function Item(id,name, price, count) {
+    this.id = id;
     this.name = name;
     this.price = price;
     this.count = count;
@@ -15,8 +16,8 @@ var shoppingCart = (function() {
   
   // Save cart
   function saveCart() {
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
-}
+    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));   
+  }
   
     // Load cart
   function loadCart() {
@@ -28,21 +29,26 @@ var shoppingCart = (function() {
 
   function postCart(){
     var data = {};
-      for(var len = sessionStorage.length, i = 0; i < len; i++) {
+    for(var len = sessionStorage.length, i = 0; i < len; i++) {
         var key =  sessionStorage.key(i);
         data[key] = sessionStorage.getItem(key);
-      }
-    console.log(data);
-    //From this point you can post the `data` to your server side
-    $.ajax({ type: "POST", url: "myPHP.php", data: data });
+    }
+  console.log(data);
+  //From this point you can post the `data` to your server side
+  $.post("isipesanan.php",{data: data},function(response,status){
+    alert("respons server" + response);
+    alert("status server"+status);
+  });
 }
+ $("#order-now").click(postCart);
+
   // =============================
   // Public methods and propeties
   // =============================
   var obj = {};
   
   // Add to cart
-  obj.addItemToCart = function(name, price, count) {
+  obj.addItemToCart = function(id,name, price, count) {
     for(var item in cart) {
       if(cart[item].name === name) {
         cart[item].count ++;
@@ -50,7 +56,7 @@ var shoppingCart = (function() {
         return;
       }
     }
-    var item = new Item(name, price, count);
+    var item = new Item(id,name, price, count);
     cart.push(item);
     saveCart();
   }
@@ -134,24 +140,30 @@ var shoppingCart = (function() {
 // *****************************************
 // Triggers / Events
 // ***************************************** 
-// Add item
+
 $('.add-to-cart').click(function(event) {
   event.preventDefault();
   var name = $(this).data('name');
   var price = Number($(this).data('price'));
-  shoppingCart.addItemToCart(name, price, 1);
+  var id = $(this).data('id');
+  shoppingCart.addItemToCart(id,name, price, 1);
   displayCart();
 });
 
-// Clear items
-$('.clear-cart').click(function() {
+$('.order-now').on("click",function(){
+  shoppingCart.clearCart();
+  displayCart();
+  });
+  
+$('.clear-cart').click(function(){
   shoppingCart.clearCart();
   displayCart();
 });
 
-$('order-now').click(function(){
-  saveCart();
-});
+function orderNow(){
+  shoppingCart.clearCart();
+  displayCart();
+}
 
 function displayCart() {
   var cartArray = shoppingCart.listCart();
