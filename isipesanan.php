@@ -8,12 +8,6 @@
         $tableNumber = $_POST['no_meja'];
         $shoppingCart = json_decode($_POST['shopping_cart']);
 
-        // sum total price
-        $totalPrice = 0;
-        foreach ($shoppingCart as &$item) {
-                $totalPrice += $item->price;
-        }
-
         // create connection
         $conn = mysqli_connect($servername, $username, $password, $database);
         if ($conn->connect_error) {
@@ -22,8 +16,8 @@
 
         /* insert pesanan */
         $insertPesananSQL = "INSERT INTO pesanan ".
-                "(totalHarga, tanggalPembelian, noMeja)". 
-                "VALUES($totalPrice, NOW(), $tableNumber)";
+                "(noMeja)". 
+                "VALUES($tableNumber)";
 
         $result = mysqli_query($conn, $insertPesananSQL);
         /* end of insert pesanan */
