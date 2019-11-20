@@ -82,6 +82,9 @@ CREATE TABLE `pesanan` (
   `totalHarga` int(11) DEFAULT NULL,
   `tanggalPembelian` date DEFAULT NULL,
   `noMeja` int(11) DEFAULT NULL,
+  `selesaidimasak` boolean DEFAULT 0,
+  `selesaidiantar` boolean DEFAULT 0,
+  `sudahdibayar` boolean DEFAULT 0,
   PRIMARY KEY (`idPesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
