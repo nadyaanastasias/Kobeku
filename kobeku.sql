@@ -79,7 +79,6 @@ DROP TABLE IF EXISTS `pesanan`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pesanan` (
   `idPesanan` int(11) NOT NULL AUTO_INCREMENT,
-  `totalHarga` int(11) DEFAULT NULL,
   `tanggalPembelian` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `noMeja` int(11) DEFAULT NULL,
   `selesaidimasak` boolean DEFAULT 0,
