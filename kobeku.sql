@@ -79,12 +79,13 @@ DROP TABLE IF EXISTS `pesanan`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pesanan` (
   `idPesanan` int(11) NOT NULL AUTO_INCREMENT,
-  `totalHarga` int(11) DEFAULT NULL,
-  `tanggalPembelian` date DEFAULT NULL,
+  `tanggalPembelian` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `noMeja` int(11) DEFAULT NULL,
+  `selesaidimasak` boolean DEFAULT 0,
+  `selesaidiantar` boolean DEFAULT 0,
+  `sudahdibayar` boolean DEFAULT 0,
   PRIMARY KEY (`idPesanan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `pesanan`
