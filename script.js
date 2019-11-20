@@ -1,6 +1,7 @@
 var shoppingCart = (function() {
   cart = [];
-  function Item(name, price, count) {
+  function Item(id, name, price, count) {
+    this.id = id;
     this.name = name;
     this.price = price;
     this.count = count;
@@ -23,24 +24,23 @@ var shoppingCart = (function() {
         data[key] = sessionStorage.getItem(key);
     }
 
-  console.log(data);
-
-  //From this point you can post the `data` to your server side
-  $.post("./isipesanan.php",
-    {
-      data1 : data
-    },
-    function(response,status){
-      alert("respons server" + response);
-      alert("status server"+status);
-  });
+    //From this point you can post the `data` to your server side
+    $.post("./isipesanan.php",
+      {
+        no_meja: 1, // this is still hard-coded, you can modify it
+        shopping_cart: data.shoppingCart
+      },
+      function(response, status){
+        console.log("status: " + status);
+        console.log("response: " + response);
+    });
   }
 
 //trigger order now
  $("#order-now").click(postCart);
  
   var obj = {};
-  obj.addItemToCart = function(name, price, count) {
+  obj.addItemToCart = function(id, name, price, count) {
     for (var item in cart) 
     {
       if (cart[item].name === name) 
@@ -50,7 +50,7 @@ var shoppingCart = (function() {
         return;
       }
     }
-    var item = new Item(name, price, count);
+    var item = new Item(id, name, price, count);
     cart.push(item);
     saveCart();
   }
@@ -130,9 +130,10 @@ var shoppingCart = (function() {
 
 $('.add-to-cart').click(function(event) {
   event.preventDefault();
+  var id = Number($(this).data('id'));
   var name = $(this).data('name');
   var price = Number($(this).data('price'));
-  shoppingCart.addItemToCart(name, price, 1);
+  shoppingCart.addItemToCart(id, name, price, 1);
   displayCart();
 });
 $('.clear-cart').click(function() {
