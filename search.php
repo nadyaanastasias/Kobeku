@@ -4,10 +4,8 @@
     $username = "root";
     $password = "";
     $database = "kobeku";
-
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $database);
-
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
@@ -58,7 +56,7 @@
                 <div class="col">
                     <ul class="menu" id="navigation">
                         <li><a href= index_v2.php >Menu</a></li>
-                        <li><a href= pesanan.html>Pesanan</a></li>
+                        <li><a href= pesanan.php>Pesanan</a></li>
                     </ul>
                 </div>
             </div>

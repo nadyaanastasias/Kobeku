@@ -2,25 +2,20 @@
 <html> 
 
 <?php
-
     //connect ke database
     $servername = "localhost";
     $username = "root";
     $password = "";
     $database = "kobeku";
-
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $database);
-
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
     // echo "Connected successfully";
-
     $sql = 'SELECT idMakanan,namaMakanan, harga, img FROM makanan';
     $result = mysqli_query($conn, $sql);
     $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
 ?>
 
     <head>
@@ -53,7 +48,7 @@
                 <div class="col">
                     <ul class="menu" id="navigation">
                         <li><a href= index_v2.php >Menu</a></li>
-                        <li><a href= pesanan.html>Pesanan</a></li>
+                        <li><a href= pesanan.php>Pesanan</a></li>
                     </ul>
                 </div>
             </div>
@@ -99,7 +94,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                     <input type="text" class="form-control" name="nomor" placeholder="input nomor meja" aria-label="noMeja" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" name="nomor" placeholder="input nomor meja" aria-label="noMeja" aria-describedby="basic-addon1">
                     <table class="show-cart table">
                     </table>
                     <div>Total price: Rp<span class="total-cart"></span></div>
