@@ -7,24 +7,20 @@
         $username = "root";
         $password = "";
         $database = "kobeku"; 
-
         // Create connection
         $conn = mysqli_connect($servername, $username, $password, $database);
-
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        // echo "Connected successfully";
-
+        // echo "Connected successfully"; 
         // isipesanan: idPesanan, idMakanan, quantity
         // pesanan: idPesanan, totalHarga, noMeja, tanggalPembelian
         // makanan: idMakanan, jenisMakanan, namaMakanan, harga, status, img
-
         $sql = 'SELECT idPesanan, noMeja FROM pesanan';
         $result = mysqli_query($conn, $sql); 
         $pesanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
-        $sql = 'SELECT pesanan.idPesanan, namaMakanan FROM isipesanan, makanan, pesanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan';
+        $sql = 'SELECT pesanan.idPesanan, namaMakanan, sudahdibayar FROM isipesanan, makanan, pesanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan ORDER BY pesanan.idPesanan';
         $result = mysqli_query($conn, $sql);
         $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
@@ -48,10 +44,10 @@
         <nav class="navbar navbar-inverse bg-inverse fixed-top">
             <div class="row">
                 <div class="col">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button><button class="clear-cart btn btn-danger">Clear Cart</button>
+
                 </div>
                 <div class = "col">
-                    <h3 align = "center" class = "web-title" style="color:white">KOBEKU</h3> 
+                    <h3 text-align = "center" class = "web-title" style="color:white">KOBEKU</h3> 
                 </div>
                 <div class = "col">  
                     <ul class = "menu" id ="navigation"> 
@@ -65,7 +61,8 @@
         <!-- Main -->
         <div class="container">
             <div class="row">
-                <?php 
+                <?php
+
                     foreach($pesanan as $psn){
                         echo '
                         <div class="col">
@@ -74,22 +71,39 @@
                                     <h4 class="card-title" id="id-pesanan">ID Pesanan '.$psn['idPesanan'].'</h4>
                                     <h4 class="card-title" id="no-meja">No Meja '.$psn['noMeja'].'</h4><br/> 
                         '; 
-
                         foreach($makanan as $item){
                             if ($psn['idPesanan']==$item['idPesanan']) {
                                 echo '
                                     <p class="card-text" id="menu-name"> '.$item['namaMakanan'].' </p>
                                 ';
-                            };
+                            }; 
                         };
-
                         echo ' 
-                                        <br/><form action="#" method="post">
-                                            <p>Status makanan</p>
-                                            <input type="checkbox" name="check_list[]" value="masak"><label>Selesai dimasak</label><br/>
-                                            <input type="checkbox" name="check_list[]" value="antar"><label>Selesai diantar</label><br/>
-                                            <input type="checkbox" name="check_list[]" value="bayar"><label>Sudah dibayar</label><br/>
-                                            <br/><input type="submit" name="submit" value="Submit"/>
+                            <br/><form action="#" method="post">
+                            <p>Status makanan</p>
+                            <input type="checkbox" onclick="this.form.submit()" name="masak" value = '.$psn['idPesanan'].'><label>Selesai dimasak</label><br/>
+                        ';
+                        if (isset($_POST['masak'])) {
+                            $query = mysqli_query($conn, "UPDATE pesanan SET selesaidimasak = '1' WHERE pesanan.idPesanan='".$_POST['masak']."' ");
+                            // var_dump($_POST['masak']);
+                        }
+                        echo '
+                            <input type="checkbox" onclick="this.form.submit()" name="antar" value = '.$psn['idPesanan'].'><label>Selesai diantar</label><br/>
+                        ';
+
+                        if (isset($_POST['antar'])) {
+                            $query = mysqli_query($conn, "UPDATE pesanan SET selesaidiantar = '1' WHERE pesanan.idPesanan='".$_POST['antar']."' ");  
+                            // var_dump($_POST['antar']); 
+                        }
+                        echo '
+                            <input type="checkbox" onclick="this.form.submit()" name="bayar" value = '.$psn['idPesanan'].'><label>Sudah dibayar</label><br/>
+                        ';
+ 
+                        if (isset($_POST['bayar'])) {
+                            $query = mysqli_query($conn, "UPDATE pesanan SET sudahdibayar = '1' WHERE pesanan.idPesanan='".$_POST['bayar']."' ");
+                            // var_dump($_POST['bayar']);
+                        }
+                        echo '
                                         </form>
                                     </div>
                                 </div>
