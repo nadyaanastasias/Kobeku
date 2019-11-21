@@ -16,11 +16,11 @@
         // isipesanan: idPesanan, idMakanan, quantity
         // pesanan: idPesanan, totalHarga, noMeja, tanggalPembelian
         // makanan: idMakanan, jenisMakanan, namaMakanan, harga, status, img
-        $sql = 'SELECT idPesanan, noMeja FROM pesanan';
+        $sql = 'SELECT idPesanan, noMeja, sudahdibayar FROM pesanan';
         $result = mysqli_query($conn, $sql); 
         $pesanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
-        $sql = 'SELECT pesanan.idPesanan, namaMakanan, sudahdibayar FROM isipesanan, makanan, pesanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan ORDER BY pesanan.idPesanan';
+        $sql = 'SELECT pesanan.idPesanan, namaMakanan FROM isipesanan, makanan, pesanan WHERE pesanan.idPesanan=isipesanan.idPesanan and isipesanan.idMakanan=makanan.idMakanan ORDER BY pesanan.idPesanan';
         $result = mysqli_query($conn, $sql);
         $makanan = mysqli_fetch_all($result, MYSQLI_ASSOC);
     ?>
@@ -64,6 +64,7 @@
                 <?php
 
                     foreach($pesanan as $psn){
+                        if ($psn['sudahdibayar']==0){
                         echo '
                         <div class="col">
                                 <div class="card" style="width: 20rem;">
@@ -109,6 +110,7 @@
                                 </div>
                             </div>
                         ';
+                        };
                     };
                 ?>               
             </div>
