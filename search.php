@@ -28,8 +28,7 @@
         };
     }
 ?>
-
-<head>
+ <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>KOBE</title>
@@ -51,7 +50,7 @@
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-1" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button>
-                    <button class="order-now btn btn-primary" id="order-now" >Order now</button>
+                    <button class="clear-cart btn btn-danger">Clear Cart</button>
                 </div>
                 <div class="col">
                     <h3 align="center" class="web-title" style="color:white">KOBEKU</h3>
@@ -65,9 +64,9 @@
             </div>
             <div class = "row">
                 <div class ="col text-center">
-                  <form method="post" action="search.php">
-                    <input type = "text" name= "search" placeholder= "Search Menu">
-                  </form>
+                    <form method="post" action="search.php">
+                        <input type = "text" name= "search" placeholder= "Search Menu">
+                    </form>
                 </div>
             </div>
         </nav>
@@ -105,13 +104,14 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                     <input type="text" class="form-control" name="nomor" placeholder="input nomor meja" aria-label="noMeja" aria-describedby="basic-addon1">
                     <table class="show-cart table">
                     </table>
                     <div>Total price: Rp<span class="total-cart"></span></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="clear-cart btn btn-danger">Clear Cart</button>
+                        <button class="order-now btn btn-primary" id="order-now" >Order now</button>
                     </div>
                 </div>
             </div>
