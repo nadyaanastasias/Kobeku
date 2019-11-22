@@ -55,7 +55,7 @@
             <div class = "row">
                 <div class ="col text-center">
                     <form method="post" action="search.php">
-                        <input type = "text" name= "search" placeholder= "Search Menu">
+                        <input type = "text" id="myinput" name= "search" placeholder= "Search Menu">
                     </form>
                 </div>
             </div>
