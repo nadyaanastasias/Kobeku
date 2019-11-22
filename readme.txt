@@ -4,13 +4,14 @@ Kobeku adalah program yang dibuat untuk manajemen pesanan dalam sebuah restoran 
 
 ## Fitur dalam website KOBEKU
 
-* Pencatatan Pesanan
+* Pencatatan Pesanan yang disimpan ke dalam database
 * Search Menu Makanan
 * Antrian Pesanan
 * Ubah Status Pesanan
 
 ## Cara menjalankan program:
 
+Sebelum menjalankan program, pastikan sudah menginstall XAMPP di komputer Anda.
 ```
 1. Download seluruh file yang terdapat di github 
 2. Jalankan XAMPP, start bagian Apache dan MySQL
