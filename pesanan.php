@@ -79,30 +79,43 @@
                                 ';
                             }; 
                         };
+
+                        // CHECKBOX SELESAI DIMASAK
                         echo ' 
                             <br/><form action="#" method="post">
                             <p>Status makanan</p>
-                            <input type="checkbox" onclick="this.form.submit()" name="masak" value = '.$psn['idPesanan'].'><label>Selesai dimasak</label><br/>
+                            <input type="checkbox" onclick="this.form.submit()" name="masak"
+                        ';
+                            if(isset($_POST['masak']) and $_POST['masak']==$psn['idPesanan']) {echo 'checked="checked"';}  
+                        echo '
+                            value = '.$psn['idPesanan'].'><label>Selesai dimasak</label><br/>
                         ';
                         if (isset($_POST['masak'])) {
                             $query = mysqli_query($conn, "UPDATE pesanan SET selesaidimasak = '1' WHERE pesanan.idPesanan='".$_POST['masak']."' ");
-                            // var_dump($_POST['masak']);
                         }
-                        echo '
-                            <input type="checkbox" onclick="this.form.submit()" name="antar" value = '.$psn['idPesanan'].'><label>Selesai diantar</label><br/>
-                        ';
 
+                        // CHECKBOX SELESAI DIANTAR
+                        echo '
+                            <input type="checkbox" onclick="this.form.submit()" name="antar"
+                        ';
+                            if(isset($_POST['antar']) and $_POST['antar']==$psn['idPesanan']) {echo 'checked="checked"';}  
+                        echo '
+                            value = '.$psn['idPesanan'].'><label>Selesai diantar</label><br/>
+                        ';
                         if (isset($_POST['antar'])) {
                             $query = mysqli_query($conn, "UPDATE pesanan SET selesaidiantar = '1' WHERE pesanan.idPesanan='".$_POST['antar']."' ");  
-                            // var_dump($_POST['antar']); 
                         }
+
+                        // CHECKBOX SELESAI DIBAYAR
                         echo '
-                            <input type="checkbox" onclick="this.form.submit()" name="bayar" value = '.$psn['idPesanan'].'><label>Sudah dibayar</label><br/>
+                            <input type="checkbox" onclick="this.form.submit()" name="bayar"
                         ';
- 
+                            if(isset($_POST['bayar']) and $_POST['bayar']==$psn['idPesanan']) {echo 'checked="checked"';}  
+                        echo '
+                            value = '.$psn['idPesanan'].'><label>Selesai dibayar</label><br/>
+                        ';
                         if (isset($_POST['bayar'])) {
                             $query = mysqli_query($conn, "UPDATE pesanan SET sudahdibayar = '1' WHERE pesanan.idPesanan='".$_POST['bayar']."' ");
-                            // var_dump($_POST['bayar']);
                         }
                         echo '
                                         </form>
