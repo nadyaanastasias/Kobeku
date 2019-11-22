@@ -1,5 +1,17 @@
-Kobeku adalah program yang dibuat untuk manajemen pesanan dalam sebuah restoran bernama Kobe yang terletak di Jalan Cibadak.
-Cara menjalankan program:
+# Panduan Penggunaan Website KOBEKU
+
+Kobeku adalah program yang dibuat untuk manajemen pesanan dalam sebuah restoran bernama Kobe Japanese Teriyaki yang terletak di Jalan Cibadak.
+
+## Fitur dalam website KOBEKU
+
+* Pencatatan Pesanan
+* Search Menu Makanan
+* Antrian Pesanan
+* Ubah Status Pesanan
+
+## Cara menjalankan program:
+
+```
 1. Download seluruh file yang terdapat di github 
 2. Jalankan XAMPP, start bagian Apache dan MySQL
 3. Pada XAMPP, klik tombol yang ada logo folder yang bernama "Explorer" untuk masuk ke dalam folder XAMPP berada
@@ -10,9 +22,10 @@ Cara menjalankan program:
 8. Pada bagian SQLnya, copas code dari file "kobeku.sql", lalu klik kirim untuk menjalankan querynya
 9. Buka tab baru pada browser
 10. Ketik "localhost/index_v2.php" untuk menjalankan program
+```
 
+## Kelompok RPL 7:
 
-Kelompok RPL 7:
 Almyra Ramadhina / 18217009 
 Nadya Anastasia / 18217020 
 Lidya Jessica / 18217037 
