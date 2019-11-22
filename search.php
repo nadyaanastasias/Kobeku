@@ -50,8 +50,8 @@
                     <button type="button" class="btn btn-1" data-toggle="modal" data-target="#cart">Cart (<span class="total-harga"></span>)</button>
                     <button class="clear-cart btn btn-danger">Clear Cart</button>
                 </div>
-                <div class="col">
-                    <h3 align="center" class="web-title" style="color:white">KOBEKU</h3>
+                <div class="col" align="center" >
+                    <h3 class="web-title" style="color:white">KOBEKU</h3>
                 </div>
                 <div class="col">
                     <ul class="menu" id="navigation">
