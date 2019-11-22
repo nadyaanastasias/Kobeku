@@ -46,7 +46,7 @@
                 <div class="col">
 
                 </div>
-                <div class = "col" text-align = "center">
+                <div class = "col" align = "center">
                     <h3 class = "web-title" style="color:white">KOBEKU</h3> 
                 </div>
                 <div class = "col">  
