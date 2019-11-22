@@ -46,8 +46,8 @@
                 <div class="col">
 
                 </div>
-                <div class = "col">
-                    <h3 text-align = "center" class = "web-title" style="color:white">KOBEKU</h3> 
+                <div class = "col" text-align = "center">
+                    <h3 class = "web-title" style="color:white">KOBEKU</h3> 
                 </div>
                 <div class = "col">  
                     <ul class = "menu" id ="navigation"> 
